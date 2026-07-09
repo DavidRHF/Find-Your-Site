@@ -3,33 +3,30 @@
 Everything goes in the **root** of your repo (same folder as index.html).
 
 ## leads-game.html  → replace the existing one
-The fishing game, in a 900x900 scene (boat, fisherman, island, bottle).
-- Press **Cast** to drop the line; the button becomes **Reel**.
-- **Hold Reel** (or the spacebar) to raise the line; release to let it sink.
-- The line only moves up/down. Hook a fish 🐟 to land a lead; hitting garbage
-  (🥤 🛍️ 🥫) fails the cast.
-- 3 fish (slow) and 3 garbage (faster) drift randomly underwater.
-- 15 seconds per cast, 5 casts total, scored out of 5.
-- No replay without a page refresh (switching tabs does NOT restart it).
+Fishing game in a compact scene sized to fit on screen with its button.
+- Hand-drawn SVG boat, an older angler in a bucket hat slouched on a chair with
+  his rod running to the reel, and a corked message-in-a-bottle.
+- **Cast** drops the line; the button becomes **Reel**. Hold Reel (or spacebar)
+  to raise the line; release to sink it. Line only moves vertically.
+- Hook a fish 🐟 = a lead; touching garbage (🥤🛍️🥫) fails the cast.
+- 3 slow fish, 3 faster garbage. 15 sec per cast, 5 casts, scored out of 5.
+- Big countdown sits ABOVE the sidebar. Time out = failed cast.
+- No replay without a page refresh (tab-switching does NOT restart it).
 
 ## discount-spinner.html  → replace the existing one
-- Every spin now generates a **fresh random code** (letters + numbers, e.g.
-  K7MQ-P9X4), so codes can't be reused.
-- **One spin per page load** — the button locks after spinning; only a real
-  page refresh unlocks it (switching tabs does NOT reset it).
-- Spins fast and slows to a natural stop on the prize.
-- To change prizes/odds, edit the `SEGMENTS` list at the top of the <script>.
+- Fresh RANDOM code every spin (letters+numbers, e.g. K7MQ-P9X4).
+- One spin per page load; only a refresh unlocks it (tab-switch won't reset).
 
-## inquiry-discount.js  → NEW file, add it
-Add this file, then add ONE line to custom-inquiry.html before </body>:
+## inquiry-discount.js  → NEW file + ONE line on custom-inquiry.html
+Add this file, then add before </body> of custom-inquiry.html:
 
     <script src="inquiry-discount.js" defer></script>
 
-When someone clicks "Claim it" after a spin, this shows a banner on the inquiry
-page and attaches the (random) code to your form so it arrives with the message.
+It shows the won discount in a banner AND inside your form, and attaches the code
+to the submission. TEST with:
+    custom-inquiry.html?discount=TEST-1234&reward=10%25%20Off
+If nothing shows, the <script> line above isn't on the page (or the path is wrong).
 
-## Good to know
-- Static site, so discounts are honor-system: the code reaches you with the
-  inquiry and you apply it when you reply.
-- All pages share the warm teal + amber look. To match a different brand, edit
-  the `:root` color variables at the top of each HTML file.
+## Note
+Static site = honor-system discounts: the code reaches you with the inquiry and
+you apply it. Edit the `:root` colors at the top of each HTML file to rebrand.

@@ -30,53 +30,44 @@
   :focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
 
   .nav{position:sticky;top:0;z-index:50;background:rgba(247,244,238,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
-  .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:.9rem 0}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:.75rem 0}
   .brand{font-family:var(--font-head);font-weight:800;font-size:1.15rem;color:var(--ink)}
   .nav-links{display:flex;align-items:center;gap:1.3rem}
   .nav-links a{font-weight:500;color:var(--ink-soft);font-size:.95rem}
   .nav-links a:hover,.nav-links a[aria-current="page"]{color:var(--brand)}
   .nav-toggle{display:none;background:none;border:none;color:var(--ink);cursor:pointer}
 
-  .page-head{padding:clamp(2rem,5vw,3rem) 0 1rem;text-align:center}
-  .eyebrow{font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--brand)}
-  .page-head h1{font-size:clamp(2rem,5vw,3rem);font-weight:800;margin:.6rem 0}
-  .page-head p{color:var(--ink-soft);max-width:60ch;margin:0 auto;font-size:1.05rem}
+  .page-head{padding:.9rem 0 .3rem;text-align:center}
+  .eyebrow{font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--brand)}
+  .page-head h1{font-size:clamp(1.5rem,4vw,2.1rem);font-weight:800;margin:.25rem 0}
+  .page-head p{color:var(--ink-soft);max-width:64ch;margin:0 auto;font-size:.95rem}
 
-  .layout{display:grid;grid-template-columns:1fr 320px;gap:1.5rem;padding:1.2rem 0 4rem;align-items:start}
+  .layout{display:grid;grid-template-columns:1fr 300px;gap:1.3rem;padding:.7rem 0 3rem;align-items:start}
 
-  /* ---- game frame (responsive; internal logic is a fixed 900x900) ---- */
-  .frame{position:relative;width:min(900px,100%);aspect-ratio:1/1;border-radius:22px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line);margin-inline:auto;user-select:none;touch-action:manipulation}
+  /* ---- game frame: internal logic is a fixed 900x900, shown small enough to fit view ---- */
+  .frame{position:relative;width:min(540px,100%,58vh);aspect-ratio:1/1;border-radius:20px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line);margin-inline:auto;user-select:none;touch-action:manipulation}
   .stage{position:absolute;top:0;left:0;width:900px;height:900px;transform-origin:top left}
 
   .sky{position:absolute;top:0;left:0;width:900px;height:152px;background:linear-gradient(180deg,#fdf3dd,#eaf6ee)}
   .sun{position:absolute;left:96px;top:44px;font-size:52px}
-  .cloud{position:absolute;left:660px;top:40px;font-size:46px;opacity:.9}
+  .cloud{position:absolute;left:640px;top:40px;font-size:46px;opacity:.9}
   .water{position:absolute;top:152px;left:0;width:900px;height:748px;background:linear-gradient(180deg,var(--water-1) 0%,var(--water-2) 45%,var(--water-3) 100%)}
   .wave{position:absolute;left:0;width:900px;height:3px;background:rgba(255,255,255,.22);animation:wave 5s ease-in-out infinite}
   @keyframes wave{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
 
   .island{position:absolute;left:742px;top:70px;font-size:96px}
-  .bottle{position:absolute;left:150px;top:120px;font-size:40px;animation:bob 3.4s ease-in-out infinite}
-  @keyframes bob{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-9px) rotate(6deg)}}
 
-  .boat-group{position:absolute;left:0;top:0;width:900px;height:900px;animation:boatbob 3.8s ease-in-out infinite}
-  @keyframes boatbob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-  .boat{position:absolute;left:378px;top:120px;width:150px;height:0;border-bottom:34px solid #8a5a2b;border-left:20px solid transparent;border-right:20px solid transparent;border-radius:0 0 10px 10px}
-  .boat::after{content:"";position:absolute;left:6px;top:-9px;width:138px;height:9px;background:#a9702f;border-radius:6px}
-  .fisher{position:absolute;left:436px;top:70px;font-size:46px}
-  .rod{position:absolute;left:474px;top:74px;width:5px;height:84px;background:#5b3a1a;border-radius:4px;transform:rotate(14deg);transform-origin:top}
+  .bob{animation:bob 3.6s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(0) rotate(-2deg)}50%{transform:translateY(-8px) rotate(2deg)}}
+  .boatbob{animation:boatbob 3.9s ease-in-out infinite}
+  @keyframes boatbob{0%,100%{transform:translateY(0) rotate(-1deg)}50%{transform:translateY(-6px) rotate(1deg)}}
 
-  .fishline{position:absolute;left:452px;top:150px;width:3px;height:0;background:rgba(255,255,255,.85);display:none}
-  .hook{position:absolute;left:452px;top:150px;font-size:26px;transform:translate(-50%,-40%);display:none}
+  .fishline{position:absolute;left:470px;top:96px;width:3px;height:0;background:rgba(255,255,255,.85);display:none}
+  .hook{position:absolute;left:470px;top:96px;font-size:26px;transform:translate(-50%,-40%);display:none}
 
   .critter{position:absolute;font-size:52px;transform:translate(-50%,-50%);will-change:left,top;pointer-events:none;filter:drop-shadow(0 3px 4px rgba(0,0,0,.28))}
   .critter.splash{animation:splash .5s ease forwards}
   @keyframes splash{to{transform:translate(-50%,-120px) scale(.2) rotate(18deg);opacity:0}}
-
-  .hud{position:absolute;left:24px;top:170px;width:852px;display:flex;align-items:center;gap:14px;pointer-events:none}
-  .timer{flex:1;height:14px;border-radius:99px;background:rgba(255,255,255,.35);overflow:hidden;border:1px solid rgba(255,255,255,.5)}
-  .timer span{display:block;height:100%;width:100%;background:var(--accent)}
-  .timer-num{font-family:var(--font-head);font-weight:800;color:#fff;font-size:1.1rem;text-shadow:0 1px 3px rgba(0,0,0,.4);min-width:52px;text-align:right}
 
   .flash{position:absolute;left:0;top:152px;width:900px;height:748px;display:grid;place-items:center;pointer-events:none;opacity:0}
   .flash.go{animation:flashpop 1s ease forwards}
@@ -86,37 +77,49 @@
   .flash .msg.lose{color:#c14b32}
 
   .startcover{position:absolute;inset:0;display:grid;place-items:center;background:rgba(12,79,73,.35);backdrop-filter:blur(2px);text-align:center;padding:24px}
-  .startcover .card{background:var(--surface);border-radius:16px;padding:26px 30px;max-width:360px;box-shadow:var(--shadow)}
-  .startcover h3{font-size:1.4rem;margin-bottom:.5rem}
-  .startcover p{color:var(--ink-soft);font-size:.95rem;margin-bottom:1.1rem}
+  .startcover .card{background:var(--surface);border-radius:16px;padding:24px 26px;max-width:340px;box-shadow:var(--shadow)}
+  .startcover h3{font-size:1.3rem;margin-bottom:.5rem}
+  .startcover p{color:var(--ink-soft);font-size:.92rem;margin-bottom:1rem}
 
-  .controls{display:flex;flex-direction:column;align-items:center;gap:.7rem;margin-top:1.1rem}
-  .actionbtn{min-width:230px;font-size:1.15rem;padding:1rem 1.6rem}
+  .controls{display:flex;flex-direction:column;align-items:center;gap:.55rem;margin-top:.9rem}
+  .actionbtn{min-width:220px;font-size:1.1rem;padding:.9rem 1.6rem}
   .actionbtn.reel{background:var(--accent);color:#3a2708}
   .actionbtn.reel:hover{background:#d8932f}
-  .hint{color:var(--ink-soft);font-size:.9rem;text-align:center;max-width:440px}
+  .hint{color:var(--ink-soft);font-size:.85rem;text-align:center;max-width:440px}
 
-  /* sidebar */
-  .sidebar{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:1.4rem;position:sticky;top:88px}
-  .sidebar h2{font-size:1.15rem;font-weight:800}
-  .score{font-family:var(--font-head);font-weight:800;color:var(--brand);font-size:2rem;margin:.2rem 0 .1rem}
-  .score small{font-size:1rem;color:var(--ink-soft);font-weight:600}
-  .progress{height:8px;border-radius:99px;background:var(--line);overflow:hidden;margin:.6rem 0 1rem}
+  /* side column: countdown timer ABOVE the sidebar */
+  .side-col{display:flex;flex-direction:column;gap:1rem;position:sticky;top:80px}
+  .timer-card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:1rem 1.2rem;text-align:center}
+  .timer-card .tc-label{font-size:.72rem;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-soft);font-weight:700}
+  .timer-card .tc-num{font-family:var(--font-head);font-weight:800;font-size:2.6rem;line-height:1.1;color:var(--brand)}
+  .timer-card .tc-num small{font-size:1.1rem;color:var(--ink-soft)}
+  .timer-card .tc-bar{height:9px;border-radius:99px;background:var(--line);overflow:hidden;margin-top:.55rem}
+  .timer-card .tc-bar span{display:block;height:100%;width:100%;background:var(--accent);transition:width .12s linear}
+  .timer-card.idle{opacity:.65}
+  .timer-card.low .tc-num{color:#d84a2c}
+  .timer-card.low .tc-bar span{background:#e05a3a}
+  .timer-card.low{animation:pulse .7s ease-in-out infinite}
+  @keyframes pulse{0%,100%{box-shadow:0 0 0 0 rgba(224,90,58,0)}50%{box-shadow:0 0 0 5px rgba(224,90,58,.14)}}
+
+  .sidebar{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:1.3rem}
+  .sidebar h2{font-size:1.1rem;font-weight:800}
+  .score{font-family:var(--font-head);font-weight:800;color:var(--brand);font-size:1.9rem;margin:.15rem 0 .1rem}
+  .score small{font-size:.95rem;color:var(--ink-soft);font-weight:600}
+  .progress{height:8px;border-radius:99px;background:var(--line);overflow:hidden;margin:.55rem 0 .9rem}
   .progress span{display:block;height:100%;width:0;background:var(--brand);transition:width .3s}
-  .pips{display:flex;gap:.4rem;margin-bottom:1.1rem}
-  .pip{flex:1;height:34px;border-radius:9px;background:var(--paper);border:1px solid var(--line);display:grid;place-items:center;font-size:1rem}
+  .pips{display:flex;gap:.4rem;margin-bottom:1rem}
+  .pip{flex:1;height:32px;border-radius:9px;background:var(--paper);border:1px solid var(--line);display:grid;place-items:center;font-size:1rem}
   .pip.win{background:#e6f4f0;border-color:var(--brand)}
   .pip.lose{background:#f7ece8;border-color:#d9a191}
-  .leadhdr{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-soft);font-weight:700;margin-bottom:.5rem}
-  .leads{list-style:none;display:grid;gap:.55rem;max-height:38vh;overflow:auto}
-  .leads li{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:.6rem .75rem;animation:pop .3s ease}
+  .leadhdr{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-soft);font-weight:700;margin-bottom:.45rem}
+  .leads{list-style:none;display:grid;gap:.5rem;max-height:30vh;overflow:auto}
+  .leads li{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:.55rem .7rem;animation:pop .3s ease}
   @keyframes pop{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
-  .lead-type{color:var(--brand);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
-  .lead-name{font-weight:700;font-size:.92rem}
-  .lead-note{color:var(--ink-soft);font-size:.82rem}
-  .empty{color:var(--ink-soft);font-size:.9rem;padding:.4rem 0}
+  .lead-type{color:var(--brand);font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+  .lead-name{font-weight:700;font-size:.9rem}
+  .lead-note{color:var(--ink-soft);font-size:.8rem}
+  .empty{color:var(--ink-soft);font-size:.88rem;padding:.4rem 0}
 
-  /* modal */
   .modal{position:fixed;inset:0;background:rgba(12,79,73,.55);display:none;place-items:center;padding:1.5rem;z-index:100}
   .modal.open{display:grid}
   .modal .box{background:var(--surface);border-radius:20px;padding:clamp(1.5rem,4vw,2.4rem);max-width:520px;width:100%;box-shadow:var(--shadow);max-height:88vh;overflow:auto;text-align:center}
@@ -138,7 +141,8 @@
 
   @media(max-width:940px){
     .layout{grid-template-columns:1fr}
-    .sidebar{position:static;order:2}
+    .side-col{position:static;order:2}
+    .frame{width:min(540px,100%,70vh)}
     .nav-links{display:none}
     .nav-links.open{display:flex;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:1rem;padding:1.2rem 4vw;background:var(--paper);border-bottom:1px solid var(--line)}
     .nav-toggle{display:block}
@@ -169,7 +173,7 @@
   <div class="page-head">
     <span class="eyebrow">Interactive lead game</span>
     <h1>Fish for local leads.</h1>
-    <p>Cast your line and hook the fish to land a lead — but dodge the garbage. You get 5 casts, 15 seconds each. Hold <b>Reel</b> to pull the line up, let go to drop it down.</p>
+    <p>Hook a fish 🐟 to land a lead, dodge the garbage. 5 casts, 15 seconds each — hold <b>Reel</b> to raise the line, release to drop it.</p>
   </div>
 
   <div class="layout">
@@ -179,29 +183,66 @@
           <div class="sky"></div>
           <div class="sun">☀️</div>
           <div class="cloud">☁️</div>
-          <div class="water" id="water">
+          <div class="water">
             <div class="wave" style="top:60px"></div>
             <div class="wave" style="top:180px;animation-delay:1.3s"></div>
             <div class="wave" style="top:320px;animation-delay:2.2s"></div>
           </div>
           <div class="island">🏝️</div>
-          <div class="bottle">🍾</div>
 
-          <div class="boat-group">
-            <div class="boat"></div>
-            <div class="fisher">🧑‍🦰</div>
-            <div class="rod"></div>
-          </div>
+          <!-- message in a bottle -->
+          <svg class="bob" viewBox="0 0 78 44" style="position:absolute;left:104px;top:112px;width:78px;height:44px;overflow:visible">
+            <ellipse cx="38" cy="40" rx="30" ry="4" fill="#0c4f49" opacity="0.2"/>
+            <rect x="6" y="12" width="46" height="22" rx="11" fill="#bfe3d6" opacity="0.9"/>
+            <rect x="50" y="17" width="14" height="12" rx="4" fill="#bfe3d6" opacity="0.9"/>
+            <rect x="62" y="16.5" width="8" height="13" rx="2.5" fill="#c8935a"/>
+            <rect x="14" y="17" width="26" height="12" rx="2" fill="#f3e7c9"/>
+            <line x1="19" y1="21" x2="36" y2="21" stroke="#c9a86a" stroke-width="1.4"/>
+            <line x1="19" y1="25" x2="32" y2="25" stroke="#c9a86a" stroke-width="1.4"/>
+            <ellipse cx="14" cy="23" rx="2.6" ry="6" fill="#e7d9b4"/>
+            <ellipse cx="40" cy="23" rx="2.6" ry="6" fill="#e7d9b4"/>
+            <rect x="12" y="14" width="30" height="4" rx="2" fill="#ffffff" opacity="0.45"/>
+          </svg>
+
+          <!-- boat + old fisherman with bucket hat, slouched on a chair, rod to reel -->
+          <svg class="boatbob" viewBox="0 0 340 170" style="position:absolute;left:250px;top:22px;width:340px;height:170px;overflow:visible">
+            <ellipse cx="150" cy="132" rx="126" ry="12" fill="#0c4f49" opacity="0.22"/>
+            <!-- inside of hull -->
+            <ellipse cx="150" cy="101" rx="126" ry="13" fill="#5f3f22"/>
+            <ellipse cx="150" cy="99" rx="118" ry="10" fill="#835734"/>
+            <!-- chair -->
+            <rect x="92" y="56" width="7" height="48" rx="3" fill="#6b4423"/>
+            <rect x="92" y="56" width="30" height="7" rx="3" fill="#6b4423"/>
+            <rect x="90" y="95" width="46" height="7" rx="3" fill="#7a4e26"/>
+            <!-- fisherman: hunched torso -->
+            <path d="M104,101 Q97,80 116,71 Q140,62 153,79 Q155,97 140,102 Z" fill="#3f6785"/>
+            <path d="M108,101 Q104,88 116,82" stroke="#345670" stroke-width="3" fill="none" opacity=".5"/>
+            <!-- arm to rod -->
+            <path d="M150,83 Q170,85 187,92" stroke="#3f6785" stroke-width="10" fill="none" stroke-linecap="round"/>
+            <circle cx="189" cy="92" r="5.5" fill="#e6b088"/>
+            <!-- head tilted forward + grey beard -->
+            <circle cx="151" cy="63" r="12.5" fill="#e6b088"/>
+            <path d="M140,65 Q151,84 162,65 Q151,73 140,65 Z" fill="#d7d7d7"/>
+            <circle cx="147" cy="62" r="1.5" fill="#3a3a3a"/>
+            <!-- bucket hat -->
+            <ellipse cx="151" cy="54" rx="21" ry="6.5" fill="#7c7a46"/>
+            <path d="M135,55 Q137,40 151,39 Q165,40 167,55 Z" fill="#8f8c54"/>
+            <path d="M137,51 H165" stroke="#6c6a3a" stroke-width="3.5"/>
+            <!-- reel + rod -->
+            <circle cx="184" cy="96" r="5" fill="#2b2b2b"/>
+            <circle cx="184" cy="96" r="2" fill="#8a8a8a"/>
+            <line x1="186" y1="93" x2="220" y2="71" stroke="#5b3a1a" stroke-width="4" stroke-linecap="round"/>
+            <!-- near hull side (over legs) -->
+            <path d="M24,100 Q150,150 276,100 Q150,122 24,100 Z" fill="#b97e3f"/>
+            <path d="M24,100 Q150,150 276,100" stroke="#8a5a2b" stroke-width="3" fill="none"/>
+            <path d="M44,110 Q150,142 256,110" stroke="#147d74" stroke-width="6" fill="none"/>
+            <path d="M40,105 Q150,133 260,105" stroke="#9a6530" stroke-width="2.4" fill="none" opacity="0.6"/>
+          </svg>
 
           <div class="fishline" id="fishline"></div>
           <div class="hook" id="hook">🪝</div>
 
           <div id="critters"></div>
-
-          <div class="hud" id="hud" style="display:none">
-            <div class="timer"><span id="timerFill"></span></div>
-            <div class="timer-num" id="timerNum">15</div>
-          </div>
 
           <div class="flash" id="flash"><div class="msg" id="flashMsg"></div></div>
 
@@ -217,18 +258,26 @@
 
       <div class="controls">
         <button class="btn btn-primary actionbtn" id="actionBtn" style="display:none">🎣 Cast</button>
-        <p class="hint" id="hint">Hold <b>Reel</b> (or the spacebar) to raise the line — release to let it sink.</p>
+        <p class="hint">Hold <b>Reel</b> (or the spacebar) to raise the line — release to let it sink.</p>
       </div>
     </div>
 
-    <aside class="sidebar" aria-live="polite">
-      <h2>Your catch</h2>
-      <div class="score"><span id="scoreNum">0</span> <small>/ 5 leads</small></div>
-      <div class="progress"><span id="progressBar"></span></div>
-      <div class="pips" id="pips"></div>
-      <p class="leadhdr">Leads landed</p>
-      <ul class="leads" id="leadList"><li class="empty">No leads yet. Cast your line to start.</li></ul>
-    </aside>
+    <div class="side-col">
+      <div class="timer-card idle" id="timerCard">
+        <div class="tc-label">Time left</div>
+        <div class="tc-num"><span id="bigTime">15</span><small>s</small></div>
+        <div class="tc-bar"><span id="bigTimerFill"></span></div>
+      </div>
+
+      <aside class="sidebar" aria-live="polite">
+        <h2>Your catch</h2>
+        <div class="score"><span id="scoreNum">0</span> <small>/ 5 leads</small></div>
+        <div class="progress"><span id="progressBar"></span></div>
+        <div class="pips" id="pips"></div>
+        <p class="leadhdr">Leads landed</p>
+        <ul class="leads" id="leadList"><li class="empty">No leads yet. Cast your line to start.</li></ul>
+      </aside>
+    </div>
   </div>
 </main>
 
@@ -272,12 +321,11 @@
 (function(){
   "use strict";
 
-  /* ---------- constants (logical 900x900 space) ---------- */
-  var W=900, H=900, SURFACE=152, BOTTOM=862;
-  var ROD_X=452, ORIGIN_Y=150;
+  var W=900, SURFACE=152;
+  var ROD_X=470, ORIGIN_Y=96;
   var HOOK_MIN=182, HOOK_MAX=856;
-  var DOWN_SPEED=235, UP_SPEED=340;   // px/sec
-  var CAST_TIME=15;                   // seconds
+  var DOWN_SPEED=235, UP_SPEED=340;
+  var CAST_TIME=15;
   var HOOK_R=18, FISH_R=32, TRASH_R=30;
   var MAX_CASTS=5;
 
@@ -296,20 +344,19 @@
     {name:"Bloom & Vine Florist",type:"Florist",note:"Wants seasonal updates"}
   ];
 
-  /* ---------- elements ---------- */
   var frame=document.getElementById("frame");
   var stage=document.getElementById("stage");
   var crittersBox=document.getElementById("critters");
   var fishline=document.getElementById("fishline");
   var hookEl=document.getElementById("hook");
-  var hud=document.getElementById("hud");
-  var timerFill=document.getElementById("timerFill");
-  var timerNum=document.getElementById("timerNum");
   var flash=document.getElementById("flash");
   var flashMsg=document.getElementById("flashMsg");
   var startcover=document.getElementById("startcover");
   var startBtn=document.getElementById("startBtn");
   var actionBtn=document.getElementById("actionBtn");
+  var timerCard=document.getElementById("timerCard");
+  var bigTime=document.getElementById("bigTime");
+  var bigTimerFill=document.getElementById("bigTimerFill");
   var scoreNum=document.getElementById("scoreNum");
   var progressBar=document.getElementById("progressBar");
   var pipsBox=document.getElementById("pips");
@@ -320,89 +367,61 @@
   var finalList=document.getElementById("finalList");
   var refreshBtn=document.getElementById("refreshBtn");
 
-  /* ---------- state ---------- */
-  var state="ready";        // ready | idle | casting | resolving | over
-  var casts=0;
-  var leads=[];
-  var results=[];           // true/false per cast
-  var hookY=ORIGIN_Y;
-  var reeling=false;
-  var timeLeft=CAST_TIME;
-  var deck=[];
-  var critters=[];
-  var lastT=null;
+  var state="ready";
+  var casts=0, leads=[], results=[];
+  var hookY=ORIGIN_Y, reeling=false, timeLeft=CAST_TIME;
+  var deck=[], critters=[], lastT=null;
 
-  /* ---------- fit the 900x900 stage into the responsive frame ---------- */
-  function fit(){
-    var w=frame.clientWidth;
-    stage.style.transform="scale("+(w/900)+")";
-  }
+  function fit(){ stage.style.transform="scale("+(frame.clientWidth/900)+")"; }
   window.addEventListener("resize",fit);
 
-  /* ---------- helpers ---------- */
   function rand(a,b){ return Math.random()*(b-a)+a; }
   function shuffle(a){ a=a.slice(); for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;} return a; }
   function nextLead(){ if(!deck.length) deck=shuffle(LEADS); return deck.pop(); }
 
-  /* ---------- build critters (3 fish + 3 garbage) ---------- */
   function makeCritter(type,emoji,y,speed){
     var el=document.createElement("div");
-    el.className="critter";
-    el.textContent=emoji;
-    crittersBox.appendChild(el);
+    el.className="critter"; el.textContent=emoji; crittersBox.appendChild(el);
     return { el:el, type:type, r:(type==="fish"?FISH_R:TRASH_R),
-             x:rand(80,820), y:y, baseY:y, vx:(Math.random()<.5?-1:1)*speed,
+             x:rand(80,820), baseY:y, vx:(Math.random()<.5?-1:1)*speed,
              bobA:rand(6,16), bobF:rand(0.4,0.9), phase:rand(0,6.28), alive:true };
   }
   function spawnCritters(){
-    crittersBox.innerHTML="";
-    critters=[];
-    var fishDepths=shuffle([360,520,700]);
-    for(var i=0;i<3;i++){ critters.push(makeCritter("fish",FISH_EMOJI[i],fishDepths[i]+rand(-30,30),rand(58,104))); }
-    var trashDepths=shuffle([300,470,640,780]);
-    for(var j=0;j<3;j++){ critters.push(makeCritter("trash",TRASH_EMOJI[j],trashDepths[j]+rand(-25,25),rand(155,225))); }
+    crittersBox.innerHTML=""; critters=[];
+    var fd=shuffle([360,520,700]);
+    for(var i=0;i<3;i++){ critters.push(makeCritter("fish",FISH_EMOJI[i],fd[i]+rand(-30,30),rand(58,104))); }
+    var td=shuffle([300,470,640,780]);
+    for(var j=0;j<3;j++){ critters.push(makeCritter("trash",TRASH_EMOJI[j],td[j]+rand(-25,25),rand(155,225))); }
   }
 
-  /* ---------- rendering ---------- */
   function renderCritters(t){
     for(var i=0;i<critters.length;i++){
-      var c=critters[i];
-      if(!c.alive) continue;
+      var c=critters[i]; if(!c.alive) continue;
       var yy=c.baseY+Math.sin(t*c.bobF+c.phase)*c.bobA;
-      c.el.style.left=c.x+"px";
-      c.el.style.top=yy+"px";
+      c.el.style.left=c.x+"px"; c.el.style.top=yy+"px";
       c.el.style.transform="translate(-50%,-50%) scaleX("+(c.vx>0?-1:1)+")";
     }
   }
   function renderLine(){
     if(state==="casting"){
-      fishline.style.display="block";
-      hookEl.style.display="block";
-      fishline.style.top=ORIGIN_Y+"px";
-      fishline.style.height=(hookY-ORIGIN_Y)+"px";
-      hookEl.style.top=hookY+"px";
-    } else {
-      fishline.style.display="none";
-      hookEl.style.display="none";
-    }
+      fishline.style.display="block"; hookEl.style.display="block";
+      fishline.style.height=(hookY-ORIGIN_Y)+"px"; hookEl.style.top=hookY+"px";
+    } else { fishline.style.display="none"; hookEl.style.display="none"; }
   }
   function renderTimer(){
-    var pct=Math.max(0,timeLeft/CAST_TIME)*100;
-    timerFill.style.width=pct+"%";
-    timerFill.style.background = timeLeft<5 ? "#e05a3a" : "var(--accent)";
-    timerNum.textContent=Math.ceil(Math.max(0,timeLeft));
+    bigTimerFill.style.width=(Math.max(0,timeLeft/CAST_TIME)*100)+"%";
+    bigTime.textContent=Math.ceil(Math.max(0,timeLeft));
+    timerCard.classList.toggle("idle", state!=="casting");
+    timerCard.classList.toggle("low", state==="casting" && timeLeft<=5);
   }
-
-  /* ---------- sidebar ---------- */
   function renderSidebar(){
     scoreNum.textContent=leads.length;
     progressBar.style.width=(leads.length/MAX_CASTS*100)+"%";
     pipsBox.innerHTML="";
     for(var i=0;i<MAX_CASTS;i++){
-      var p=document.createElement("div");
-      p.className="pip";
+      var p=document.createElement("div"); p.className="pip";
       if(i<results.length){ p.classList.add(results[i]?"win":"lose"); p.textContent=results[i]?"🐟":"✕"; }
-      else { p.textContent=(i+1); }
+      else p.textContent=(i+1);
       pipsBox.appendChild(p);
     }
     if(!leads.length){ leadList.innerHTML='<li class="empty">No leads yet. Cast your line to start.</li>'; return; }
@@ -413,175 +432,114 @@
       leadList.appendChild(li);
     });
   }
-
   function showFlash(text,win){
-    flashMsg.textContent=text;
-    flashMsg.className="msg "+(win?"win":"lose");
+    flashMsg.textContent=text; flashMsg.className="msg "+(win?"win":"lose");
     flash.classList.remove("go"); void flash.offsetWidth; flash.classList.add("go");
   }
 
-  /* ---------- cast lifecycle ---------- */
   function startCast(){
     if(state!=="idle" && state!=="ready") return;
     if(casts>=MAX_CASTS) return;
     startcover.style.display="none";
-    state="casting";
-    hookY=HOOK_MIN;
-    timeLeft=CAST_TIME;
-    reeling=false;
-    hud.style.display="flex";
+    state="casting"; hookY=HOOK_MIN; timeLeft=CAST_TIME; reeling=false;
     actionBtn.style.display="inline-flex";
-    actionBtn.textContent="⬆️ Reel (hold)";
-    actionBtn.classList.add("reel");
-    renderTimer();
-    renderLine();
+    actionBtn.textContent="⬆️ Reel (hold)"; actionBtn.classList.add("reel");
+    renderTimer(); renderLine();
   }
 
   function endCast(win,caughtLead){
     if(state!=="casting") return;
-    state="resolving";
-    reeling=false;
-    hud.style.display="none";
-    fishline.style.display="none";
-    hookEl.style.display="none";
+    state="resolving"; reeling=false;
+    fishline.style.display="none"; hookEl.style.display="none";
     actionBtn.classList.remove("reel");
-
-    results.push(!!win);
-    casts++;
+    results.push(!!win); casts++;
     if(win && caughtLead){
       leads.push(caughtLead);
-      caughtLead._critter.alive=false;
-      caughtLead._critter.el.classList.add("splash");
+      caughtLead._critter.alive=false; caughtLead._critter.el.classList.add("splash");
       showFlash("Lead landed! 🎣",true);
-    } else {
-      showFlash(win?"Caught!":"Missed!",false);
-    }
+    } else { showFlash("Missed!",false); }
     renderSidebar();
-
     setTimeout(function(){
-      // respawn a fresh set so each cast feels new
       spawnCritters();
       if(casts>=MAX_CASTS){ gameOver(); }
-      else{
-        state="idle";
-        actionBtn.textContent="🎣 Cast";
-      }
+      else { state="idle"; timeLeft=CAST_TIME; renderTimer(); actionBtn.textContent="🎣 Cast"; }
     },900);
   }
 
   function gameOver(){
-    state="over";
-    actionBtn.disabled=true;
-    actionBtn.textContent="Refresh to play again";
+    state="over"; actionBtn.disabled=true; actionBtn.textContent="Refresh to play again";
+    timeLeft=0; renderTimer();
     finalScore.textContent=leads.length+" / "+MAX_CASTS;
     overSub.textContent = leads.length>=4 ? "Reel skills! You'd make a great local scout."
       : leads.length>=2 ? "Nice haul — a few solid leads in the boat."
       : "The garbage got the better of you this time. Refresh to try again.";
     finalList.innerHTML="";
     if(leads.length){
-      leads.forEach(function(l){
-        var li=document.createElement("li");
-        li.innerHTML="<b>"+l.name+"</b> — "+l.type+" ("+l.note+")";
-        finalList.appendChild(li);
-      });
-    } else {
-      var li=document.createElement("li"); li.textContent="No leads this round — the fish were slippery!";
-      finalList.appendChild(li);
-    }
+      leads.forEach(function(l){ var li=document.createElement("li"); li.innerHTML="<b>"+l.name+"</b> — "+l.type+" ("+l.note+")"; finalList.appendChild(li); });
+    } else { var li=document.createElement("li"); li.textContent="No leads this round — the fish were slippery!"; finalList.appendChild(li); }
     overModal.classList.add("open");
   }
 
-  /* ---------- main loop ---------- */
   function loop(now){
     if(lastT===null) lastT=now;
-    var dt=(now-lastT)/1000;
-    lastT=now;
-    if(dt>0.05) dt=0.05;             // clamp (pauses cleanly if tab was hidden)
+    var dt=(now-lastT)/1000; lastT=now;
+    if(dt>0.05) dt=0.05;
     var t=now/1000;
 
-    // critters always swim/float
     for(var i=0;i<critters.length;i++){
-      var c=critters[i];
-      if(!c.alive) continue;
+      var c=critters[i]; if(!c.alive) continue;
       c.x+=c.vx*dt;
-      if(c.x< c.r+20){ c.x=c.r+20; c.vx=Math.abs(c.vx); }
-      if(c.x> W-c.r-20){ c.x=W-c.r-20; c.vx=-Math.abs(c.vx); }
+      if(c.x<c.r+20){ c.x=c.r+20; c.vx=Math.abs(c.vx); }
+      if(c.x>W-c.r-20){ c.x=W-c.r-20; c.vx=-Math.abs(c.vx); }
     }
 
     if(state==="casting"){
-      // timer
       timeLeft-=dt;
       if(timeLeft<=0){ timeLeft=0; renderTimer(); endCast(false,null); }
       else {
-        // line movement: up while reeling, down otherwise
         hookY += (reeling? -UP_SPEED : DOWN_SPEED)*dt;
         if(hookY<HOOK_MIN) hookY=HOOK_MIN;
         if(hookY>HOOK_MAX) hookY=HOOK_MAX;
-
-        // collision: hook point vs critters
         for(var k=0;k<critters.length;k++){
-          var e=critters[k];
-          if(!e.alive) continue;
+          var e=critters[k]; if(!e.alive) continue;
           var ey=e.baseY+Math.sin(t*e.bobF+e.phase)*e.bobA;
           var dx=e.x-ROD_X, dy=ey-hookY;
           if(dx*dx+dy*dy < (HOOK_R+e.r)*(HOOK_R+e.r)){
-            if(e.type==="fish"){
-              var lead=nextLead(); lead._critter=e;
-              endCast(true,lead);
-            } else {
-              endCast(false,null);
-            }
+            if(e.type==="fish"){ var lead=nextLead(); lead._critter=e; endCast(true,lead); }
+            else { endCast(false,null); }
             break;
           }
         }
-        renderTimer();
-        renderLine();
+        renderTimer(); renderLine();
       }
     }
-
     renderCritters(t);
     requestAnimationFrame(loop);
   }
 
-  /* ---------- input ---------- */
   function pressReel(e){ if(state==="casting"){ reeling=true; if(e&&e.cancelable) e.preventDefault(); } }
   function releaseReel(){ reeling=false; }
 
-  function onAction(){
-    if(state==="idle"||state==="ready"){ startCast(); }
-  }
-  actionBtn.addEventListener("click", onAction);
+  actionBtn.addEventListener("click", function(){ if(state==="idle"||state==="ready") startCast(); });
   startBtn.addEventListener("click", function(){ startCast(); });
-
-  // hold-to-reel (pointer + touch)
   actionBtn.addEventListener("pointerdown", pressReel);
   window.addEventListener("pointerup", releaseReel);
   actionBtn.addEventListener("pointerleave", releaseReel);
   actionBtn.addEventListener("pointercancel", releaseReel);
-
-  // hold-to-reel (spacebar)
   window.addEventListener("keydown", function(e){
-    if(e.code==="Space" || e.key===" "){
+    if(e.code==="Space"||e.key===" "){
       if(state==="casting"){ reeling=true; e.preventDefault(); }
-      else if((state==="idle"||state==="ready")){ startCast(); e.preventDefault(); }
+      else if(state==="idle"||state==="ready"){ startCast(); e.preventDefault(); }
     }
   });
   window.addEventListener("keyup", function(e){ if(e.code==="Space"||e.key===" ") reeling=false; });
-
   refreshBtn.addEventListener("click", function(){ location.reload(); });
 
-  // mobile nav
   var navToggle=document.getElementById("navToggle");
   var navLinks=document.getElementById("navLinks");
-  navToggle.addEventListener("click", function(){
-    var open=navLinks.classList.toggle("open");
-    navToggle.setAttribute("aria-expanded", open);
-  });
+  navToggle.addEventListener("click", function(){ var o=navLinks.classList.toggle("open"); navToggle.setAttribute("aria-expanded",o); });
 
-  /* ---------- boot ---------- */
-  fit();
-  spawnCritters();
-  renderSidebar();
+  fit(); spawnCritters(); renderSidebar(); renderTimer();
   requestAnimationFrame(loop);
 })();
 </script>
