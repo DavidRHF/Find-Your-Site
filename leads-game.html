@@ -163,7 +163,6 @@
       <a href="leads-game.html" aria-current="page">Lead Game</a>
       <a href="custom-inquiry.html">Inquiry</a>
       <a href="about.html">About</a>
-      <a href="reviews.html">Reviews</a>
       <a href="contact.html">Contact</a>
     </nav>
   </div>
@@ -247,17 +246,13 @@
           <div class="flash" id="flash"><div class="msg" id="flashMsg"></div></div>
 
           <div class="startcover" id="startcover">
-            <div class="card">
-              <h3>Ready to fish?</h3>
-              <p>You have 5 casts. Hook a fish 🐟 to land a lead, and avoid the garbage 🥤. Press Cast to drop your line.</p>
-              <button class="btn btn-primary actionbtn" id="startBtn">🎣 Cast</button>
-            </div>
+            <div class="card"><h3>🎣 Click Cast to begin</h3></div>
           </div>
         </div>
       </div>
 
       <div class="controls">
-        <button class="btn btn-primary actionbtn" id="actionBtn" style="display:none">🎣 Cast</button>
+        <button class="btn btn-primary actionbtn" id="actionBtn">🎣 Cast</button>
         <p class="hint">Hold <b>Reel</b> (or the spacebar) to raise the line — release to let it sink.</p>
       </div>
     </div>
@@ -310,7 +305,6 @@
     <div>
       <h4>Company</h4>
       <a href="about.html">About</a>
-      <a href="reviews.html">Reviews</a>
       <a href="contact.html">Contact</a>
     </div>
   </div>
@@ -352,7 +346,6 @@
   var flash=document.getElementById("flash");
   var flashMsg=document.getElementById("flashMsg");
   var startcover=document.getElementById("startcover");
-  var startBtn=document.getElementById("startBtn");
   var actionBtn=document.getElementById("actionBtn");
   var timerCard=document.getElementById("timerCard");
   var bigTime=document.getElementById("bigTime");
@@ -521,7 +514,6 @@
   function releaseReel(){ reeling=false; }
 
   actionBtn.addEventListener("click", function(){ if(state==="idle"||state==="ready") startCast(); });
-  startBtn.addEventListener("click", function(){ startCast(); });
   actionBtn.addEventListener("pointerdown", pressReel);
   window.addEventListener("pointerup", releaseReel);
   actionBtn.addEventListener("pointerleave", releaseReel);
