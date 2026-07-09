@@ -118,7 +118,6 @@
       <div class="code" id="prizeCode"></div>
       <div class="result-actions">
         <a class="btn btn-primary" id="claimBtn" href="custom-inquiry.html">Claim it on an inquiry →</a>
-        <button class="btn btn-ghost" id="spinAgain">Spin again</button>
       </div>
     </div>
   </div>
@@ -154,19 +153,18 @@
   // Each segment: what it says on the wheel + the reward details.
   // "weight" controls how often it comes up (bigger = more common).
   var SEGMENTS = [
-    {label:"5% Off",        desc:"5% off your first project.",              code:"WELCOME5",   color:"#147d74", weight:26},
-    {label:"10% Off",       desc:"10% off your first project.",             code:"LOCAL10",    color:"#e8a13a", weight:22},
-    {label:"Free\nConsult", desc:"A free planning consultation, on me.",     code:"FREECHAT",   color:"#457b9d", weight:18},
-    {label:"15% Off",       desc:"15% off your first project.",             code:"NEIGHBOR15", color:"#e76f51", weight:16},
-    {label:"20% Off",       desc:"20% off — a lucky spin!",                 code:"LUCKY20",    color:"#2a9d8f", weight:10},
-    {label:"Free\nCare Mo.",desc:"Your first month of site care, free.",    code:"CAREFREE",   color:"#c9772f", weight:8}
+    {label:"5% Off",        desc:"5% off your first project.",   color:"#147d74", weight:26},
+    {label:"10% Off",       desc:"10% off your first project.",    color:"#e8a13a", weight:22},
+    {label:"Free\nConsult", desc:"A free planning consultation, on me.",   color:"#457b9d", weight:18},
+    {label:"15% Off",       desc:"15% off your first project.", color:"#e76f51", weight:16},
+    {label:"20% Off",       desc:"20% off — a lucky spin!",    color:"#2a9d8f", weight:10},
+    {label:"Free\nCare Mo.",desc:"Your first month of site care, free.",   color:"#c9772f", weight:8}
   ];
 
   var N = SEGMENTS.length;
   var SEG = 360 / N;               // degrees per wedge
   var wheel = document.getElementById("wheel");
   var spinBtn = document.getElementById("spinBtn");
-  var spinAgain = document.getElementById("spinAgain");
   var claimBtn = document.getElementById("claimBtn");
   var result = document.getElementById("result");
   var prizeName = document.getElementById("prizeName");
@@ -175,6 +173,15 @@
 
   var totalRotation = 0;
   var spinning = false;
+  var hasSpun = false;   // one spin per page load; only a refresh resets it
+
+  // Fresh, unguessable code every spin (omits look-alike chars 0/O/1/I)
+  function randomCode(len){
+    var chars = "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+    var out = "";
+    for(var i=0;i<len;i++){ out += chars.charAt(Math.floor(Math.random()*chars.length)); }
+    return out;
+  }
 
   // 1) Paint the coloured wedges (conic-gradient starts at top, goes clockwise)
   var stops = [];
@@ -214,10 +221,10 @@
   }
 
   function spin(){
-    if(spinning) return;
+    if(spinning || hasSpun) return;
     spinning = true;
+    hasSpun = true;
     spinBtn.disabled = true;
-    spinAgain.disabled = true;
     result.classList.remove("show");
 
     // Choose the winner FIRST, then rotate the wheel to land on it.
@@ -259,23 +266,19 @@
   function reveal(index){
     var s = SEGMENTS[index];
     var rewardText = s.label.replace(/\n/g," ");
+    var code = randomCode(4) + "-" + randomCode(4);   // e.g. K7MQ-P9X4
     prizeName.textContent = rewardText;
     prizeDesc.textContent = s.desc;
-    prizeCode.textContent = "Code: " + s.code;
-    // Carry the prize over to the inquiry page so it's pre-filled there.
-    claimBtn.href = "custom-inquiry.html?discount=" + encodeURIComponent(s.code) + "&reward=" + encodeURIComponent(rewardText);
+    prizeCode.textContent = "Code: " + code;
+    // Carry the prize + unique code to the inquiry page.
+    claimBtn.href = "custom-inquiry.html?discount=" + encodeURIComponent(code) + "&reward=" + encodeURIComponent(rewardText);
     result.classList.add("show");
     spinning = false;
-    spinBtn.disabled = false;
-    spinAgain.disabled = false;
-    spinBtn.textContent = "Spin again";
+    spinBtn.disabled = true;                 // locked for this page load
+    spinBtn.textContent = "Refresh to spin again";
   }
 
   spinBtn.addEventListener("click", spin);
-  spinAgain.addEventListener("click", function(){
-    result.classList.remove("show");
-    spin();
-  });
 
   // mobile nav
   var navToggle = document.getElementById("navToggle");

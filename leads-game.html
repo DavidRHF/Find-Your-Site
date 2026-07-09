@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Fish for Leads | Find-Your-Site</title>
-<meta name="description" content="A playful demo of local lead support — catch mock leads to see how Find-Your-Site finds and organizes local opportunities." />
+<meta name="description" content="Cast your line, dodge the garbage, and hook local leads — a playful demo from Find-Your-Site." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -12,16 +12,16 @@
   :root{
     --paper:#f7f4ee; --surface:#ffffff; --ink:#23303a; --ink-soft:#5c6873;
     --brand:#147d74; --brand-dark:#0f5f58; --accent:#e8a13a; --line:#e6e1d7;
-    --water-1:#8fd3d0; --water-2:#2b8f88; --water-3:#0f5f58;
-    --shadow:0 16px 44px -22px rgba(15,45,42,.4); --shadow-soft:0 8px 24px -16px rgba(15,45,42,.3);
+    --water-1:#9bd8d4; --water-2:#2b8f88; --water-3:#0c4f49;
+    --shadow:0 16px 44px -22px rgba(12,79,73,.45); --shadow-soft:0 8px 24px -16px rgba(12,79,73,.3);
     --font-head:"Poppins",system-ui,sans-serif; --font-body:"Inter",system-ui,sans-serif;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   body{font-family:var(--font-body);background:var(--paper);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased}
   h1,h2,h3{font-family:var(--font-head);line-height:1.1;letter-spacing:-.01em}
   a{color:inherit;text-decoration:none}
-  .wrap{width:min(1140px,92vw);margin-inline:auto}
-  .btn{display:inline-flex;align-items:center;gap:.5rem;font-family:var(--font-body);font-weight:600;font-size:1rem;padding:.8rem 1.4rem;border-radius:999px;cursor:pointer;border:1.5px solid transparent;transition:transform .18s,background .18s,box-shadow .18s}
+  .wrap{width:min(1180px,94vw);margin-inline:auto}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;font-family:var(--font-body);font-weight:600;font-size:1rem;padding:.8rem 1.4rem;border-radius:999px;cursor:pointer;border:1.5px solid transparent;transition:transform .18s,background .18s,box-shadow .18s}
   .btn-primary{background:var(--brand);color:#fff;box-shadow:var(--shadow-soft)}
   .btn-primary:hover{background:var(--brand-dark);transform:translateY(-2px)}
   .btn-ghost{background:transparent;color:var(--ink);border-color:var(--line)}
@@ -29,7 +29,6 @@
   .btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
   :focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
 
-  /* nav */
   .nav{position:sticky;top:0;z-index:50;background:rgba(247,244,238,.88);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
   .nav-inner{display:flex;align-items:center;justify-content:space-between;padding:.9rem 0}
   .brand{font-family:var(--font-head);font-weight:800;font-size:1.15rem;color:var(--ink)}
@@ -38,82 +37,112 @@
   .nav-links a:hover,.nav-links a[aria-current="page"]{color:var(--brand)}
   .nav-toggle{display:none;background:none;border:none;color:var(--ink);cursor:pointer}
 
-  /* header */
-  .page-head{padding:clamp(2rem,5vw,3.2rem) 0 1rem;text-align:center}
+  .page-head{padding:clamp(2rem,5vw,3rem) 0 1rem;text-align:center}
   .eyebrow{font-size:.78rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--brand)}
   .page-head h1{font-size:clamp(2rem,5vw,3rem);font-weight:800;margin:.6rem 0}
   .page-head p{color:var(--ink-soft);max-width:60ch;margin:0 auto;font-size:1.05rem}
 
-  /* game layout */
-  .game{display:grid;grid-template-columns:1fr 320px;gap:1.5rem;padding:1.5rem 0 4rem;align-items:start}
+  .layout{display:grid;grid-template-columns:1fr 320px;gap:1.5rem;padding:1.2rem 0 4rem;align-items:start}
 
-  .pond-wrap{border-radius:22px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line)}
-  .pond{position:relative;height:min(60vh,460px);background:linear-gradient(180deg,var(--water-1) 0%,var(--water-2) 55%,var(--water-3) 100%);overflow:hidden}
-  .pond .sky{position:absolute;top:0;left:0;right:0;height:64px;background:linear-gradient(180deg,#fdf6e6,rgba(253,246,230,0));display:flex;align-items:center;justify-content:space-between;padding:0 18px;font-size:1.5rem;pointer-events:none}
-  .ripple{position:absolute;left:0;right:0;height:2px;background:rgba(255,255,255,.25);animation:bob 4s ease-in-out infinite}
-  @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(6px)}}
+  /* ---- game frame (responsive; internal logic is a fixed 900x900) ---- */
+  .frame{position:relative;width:min(900px,100%);aspect-ratio:1/1;border-radius:22px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--line);margin-inline:auto;user-select:none;touch-action:manipulation}
+  .stage{position:absolute;top:0;left:0;width:900px;height:900px;transform-origin:top left}
 
-  .fish{position:absolute;background:none;border:none;cursor:pointer;font-size:2.6rem;line-height:1;padding:6px;filter:drop-shadow(0 3px 4px rgba(0,0,0,.25));transition:transform .12s;will-change:left}
-  .fish:hover{transform:scale(1.12)}
-  .fish.caught{animation:hooked .3s ease forwards;pointer-events:none}
-  @keyframes hooked{to{transform:translateY(-40px) scale(.2) rotate(20deg);opacity:0}}
-  @keyframes swim-right{from{left:-14%}to{left:114%}}
-  @keyframes swim-left{from{left:114%}to{left:-14%}}
+  .sky{position:absolute;top:0;left:0;width:900px;height:152px;background:linear-gradient(180deg,#fdf3dd,#eaf6ee)}
+  .sun{position:absolute;left:96px;top:44px;font-size:52px}
+  .cloud{position:absolute;left:660px;top:40px;font-size:46px;opacity:.9}
+  .water{position:absolute;top:152px;left:0;width:900px;height:748px;background:linear-gradient(180deg,var(--water-1) 0%,var(--water-2) 45%,var(--water-3) 100%)}
+  .wave{position:absolute;left:0;width:900px;height:3px;background:rgba(255,255,255,.22);animation:wave 5s ease-in-out infinite}
+  @keyframes wave{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
 
-  .pond-overlay{position:absolute;inset:0;display:grid;place-items:center;text-align:center;background:rgba(15,45,42,.35);backdrop-filter:blur(2px);padding:1.5rem}
-  .pond-overlay .card{background:var(--surface);border-radius:16px;padding:1.6rem 1.8rem;max-width:340px;box-shadow:var(--shadow)}
-  .pond-overlay h3{font-size:1.3rem;margin-bottom:.5rem}
-  .pond-overlay p{color:var(--ink-soft);margin-bottom:1.1rem;font-size:.95rem}
+  .island{position:absolute;left:742px;top:70px;font-size:96px}
+  .bottle{position:absolute;left:150px;top:120px;font-size:40px;animation:bob 3.4s ease-in-out infinite}
+  @keyframes bob{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-9px) rotate(6deg)}}
 
-  .controls{display:flex;gap:.7rem;flex-wrap:wrap;justify-content:center;margin-top:1.2rem}
+  .boat-group{position:absolute;left:0;top:0;width:900px;height:900px;animation:boatbob 3.8s ease-in-out infinite}
+  @keyframes boatbob{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
+  .boat{position:absolute;left:378px;top:120px;width:150px;height:0;border-bottom:34px solid #8a5a2b;border-left:20px solid transparent;border-right:20px solid transparent;border-radius:0 0 10px 10px}
+  .boat::after{content:"";position:absolute;left:6px;top:-9px;width:138px;height:9px;background:#a9702f;border-radius:6px}
+  .fisher{position:absolute;left:436px;top:70px;font-size:46px}
+  .rod{position:absolute;left:474px;top:74px;width:5px;height:84px;background:#5b3a1a;border-radius:4px;transform:rotate(14deg);transform-origin:top}
+
+  .fishline{position:absolute;left:452px;top:150px;width:3px;height:0;background:rgba(255,255,255,.85);display:none}
+  .hook{position:absolute;left:452px;top:150px;font-size:26px;transform:translate(-50%,-40%);display:none}
+
+  .critter{position:absolute;font-size:52px;transform:translate(-50%,-50%);will-change:left,top;pointer-events:none;filter:drop-shadow(0 3px 4px rgba(0,0,0,.28))}
+  .critter.splash{animation:splash .5s ease forwards}
+  @keyframes splash{to{transform:translate(-50%,-120px) scale(.2) rotate(18deg);opacity:0}}
+
+  .hud{position:absolute;left:24px;top:170px;width:852px;display:flex;align-items:center;gap:14px;pointer-events:none}
+  .timer{flex:1;height:14px;border-radius:99px;background:rgba(255,255,255,.35);overflow:hidden;border:1px solid rgba(255,255,255,.5)}
+  .timer span{display:block;height:100%;width:100%;background:var(--accent)}
+  .timer-num{font-family:var(--font-head);font-weight:800;color:#fff;font-size:1.1rem;text-shadow:0 1px 3px rgba(0,0,0,.4);min-width:52px;text-align:right}
+
+  .flash{position:absolute;left:0;top:152px;width:900px;height:748px;display:grid;place-items:center;pointer-events:none;opacity:0}
+  .flash.go{animation:flashpop 1s ease forwards}
+  @keyframes flashpop{0%{opacity:0;transform:scale(.7)}25%{opacity:1;transform:scale(1)}80%{opacity:1}100%{opacity:0}}
+  .flash .msg{font-family:var(--font-head);font-weight:800;font-size:64px;padding:14px 34px;border-radius:18px;background:rgba(255,255,255,.92);box-shadow:var(--shadow)}
+  .flash .msg.win{color:var(--brand)}
+  .flash .msg.lose{color:#c14b32}
+
+  .startcover{position:absolute;inset:0;display:grid;place-items:center;background:rgba(12,79,73,.35);backdrop-filter:blur(2px);text-align:center;padding:24px}
+  .startcover .card{background:var(--surface);border-radius:16px;padding:26px 30px;max-width:360px;box-shadow:var(--shadow)}
+  .startcover h3{font-size:1.4rem;margin-bottom:.5rem}
+  .startcover p{color:var(--ink-soft);font-size:.95rem;margin-bottom:1.1rem}
+
+  .controls{display:flex;flex-direction:column;align-items:center;gap:.7rem;margin-top:1.1rem}
+  .actionbtn{min-width:230px;font-size:1.15rem;padding:1rem 1.6rem}
+  .actionbtn.reel{background:var(--accent);color:#3a2708}
+  .actionbtn.reel:hover{background:#d8932f}
+  .hint{color:var(--ink-soft);font-size:.9rem;text-align:center;max-width:440px}
 
   /* sidebar */
   .sidebar{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:1.4rem;position:sticky;top:88px}
   .sidebar h2{font-size:1.15rem;font-weight:800}
-  .count{font-family:var(--font-head);font-weight:800;color:var(--brand);font-size:1.05rem;margin:.2rem 0 1rem}
-  .progress{height:8px;border-radius:99px;background:var(--line);overflow:hidden;margin-bottom:1.1rem}
+  .score{font-family:var(--font-head);font-weight:800;color:var(--brand);font-size:2rem;margin:.2rem 0 .1rem}
+  .score small{font-size:1rem;color:var(--ink-soft);font-weight:600}
+  .progress{height:8px;border-radius:99px;background:var(--line);overflow:hidden;margin:.6rem 0 1rem}
   .progress span{display:block;height:100%;width:0;background:var(--brand);transition:width .3s}
-  .leads{list-style:none;display:grid;gap:.6rem;max-height:46vh;overflow:auto}
-  .leads li{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:.7rem .8rem;animation:pop .3s ease}
+  .pips{display:flex;gap:.4rem;margin-bottom:1.1rem}
+  .pip{flex:1;height:34px;border-radius:9px;background:var(--paper);border:1px solid var(--line);display:grid;place-items:center;font-size:1rem}
+  .pip.win{background:#e6f4f0;border-color:var(--brand)}
+  .pip.lose{background:#f7ece8;border-color:#d9a191}
+  .leadhdr{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-soft);font-weight:700;margin-bottom:.5rem}
+  .leads{list-style:none;display:grid;gap:.55rem;max-height:38vh;overflow:auto}
+  .leads li{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:.6rem .75rem;animation:pop .3s ease}
   @keyframes pop{from{transform:scale(.9);opacity:0}to{transform:scale(1);opacity:1}}
-  .leads .lead-name{font-weight:700;font-size:.95rem}
-  .leads .lead-type{color:var(--brand);font-size:.78rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em}
-  .leads .lead-note{color:var(--ink-soft);font-size:.85rem;margin-top:.15rem}
-  .empty{color:var(--ink-soft);font-size:.9rem;padding:.5rem 0}
+  .lead-type{color:var(--brand);font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+  .lead-name{font-weight:700;font-size:.92rem}
+  .lead-note{color:var(--ink-soft);font-size:.82rem}
+  .empty{color:var(--ink-soft);font-size:.9rem;padding:.4rem 0}
 
   /* modal */
-  .modal{position:fixed;inset:0;background:rgba(15,45,42,.55);display:none;place-items:center;padding:1.5rem;z-index:100}
+  .modal{position:fixed;inset:0;background:rgba(12,79,73,.55);display:none;place-items:center;padding:1.5rem;z-index:100}
   .modal.open{display:grid}
-  .modal .box{background:var(--surface);border-radius:20px;padding:clamp(1.5rem,4vw,2.4rem);max-width:520px;width:100%;box-shadow:var(--shadow);max-height:88vh;overflow:auto}
-  .modal h2{font-size:1.6rem;font-weight:800;margin-bottom:.4rem}
+  .modal .box{background:var(--surface);border-radius:20px;padding:clamp(1.5rem,4vw,2.4rem);max-width:520px;width:100%;box-shadow:var(--shadow);max-height:88vh;overflow:auto;text-align:center}
+  .modal .big{font-family:var(--font-head);font-weight:800;font-size:3rem;color:var(--brand);line-height:1}
+  .modal h2{font-size:1.5rem;font-weight:800;margin:.4rem 0}
   .modal .sub{color:var(--ink-soft);margin-bottom:1.2rem}
-  .modal ul{list-style:none;display:grid;gap:.5rem;margin-bottom:1.4rem}
-  .modal li{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:.6rem .8rem;font-size:.92rem}
-  .modal li b{display:block}
-  .modal-actions{display:flex;gap:.7rem;flex-wrap:wrap}
+  .modal ul{list-style:none;display:grid;gap:.5rem;margin-bottom:1.4rem;text-align:left}
+  .modal li{background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:.55rem .8rem;font-size:.9rem}
+  .modal-actions{display:flex;gap:.7rem;flex-wrap:wrap;justify-content:center}
 
-  /* footer */
   footer{background:var(--ink);color:#cdd4d8;padding:3rem 0 2rem;margin-top:2rem}
   .foot-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:2rem}
   .foot-grid h3{color:#fff;font-size:1.1rem;margin-bottom:.6rem}
   .foot-grid h4{color:#fff;font-size:.9rem;margin-bottom:.6rem;text-transform:uppercase;letter-spacing:.06em}
   .foot-grid a{display:block;color:#cdd4d8;font-size:.92rem;margin-bottom:.35rem}
   .foot-grid a:hover{color:var(--accent)}
-  .foot-grid p{font-size:.9rem;margin-bottom:.3rem}
+  .foot-grid p{font-size:.9rem}
   .foot-base{margin-top:2rem;padding-top:1.3rem;border-top:1px solid rgba(255,255,255,.12);font-size:.85rem;color:#96a0a6}
 
-  @media(max-width:860px){
-    .game{grid-template-columns:1fr}
+  @media(max-width:940px){
+    .layout{grid-template-columns:1fr}
     .sidebar{position:static;order:2}
     .nav-links{display:none}
     .nav-links.open{display:flex;position:absolute;top:100%;left:0;right:0;flex-direction:column;gap:1rem;padding:1.2rem 4vw;background:var(--paper);border-bottom:1px solid var(--line)}
     .nav-toggle{display:block}
     .foot-grid{grid-template-columns:1fr;gap:1.4rem}
-  }
-  @media(prefers-reduced-motion:reduce){
-    .fish{animation:none!important;left:auto;position:relative;display:inline-block;margin:.4rem}
-    .pond{height:auto;padding:1rem;display:flex;flex-wrap:wrap;justify-content:center;align-content:flex-start}
-    .ripple{display:none}
   }
 </style>
 </head>
@@ -138,53 +167,80 @@
 
 <main class="wrap">
   <div class="page-head">
-    <span class="eyebrow">Interactive lead preview</span>
+    <span class="eyebrow">Interactive lead game</span>
     <h1>Fish for local leads.</h1>
-    <p>A little demo of the lead-support idea. Click the fish to hook mock local businesses that could use a website. Catch five to finish the round — in real practice, these would be actual local opportunities I'd help you reach.</p>
+    <p>Cast your line and hook the fish to land a lead — but dodge the garbage. You get 5 casts, 15 seconds each. Hold <b>Reel</b> to pull the line up, let go to drop it down.</p>
   </div>
 
-  <div class="game">
+  <div class="layout">
     <div>
-      <div class="pond-wrap">
-        <div class="pond" id="pond" aria-label="Fishing pond">
-          <div class="sky"><span>☀️</span><span>🛶</span><span>🪵</span></div>
-          <div class="ripple" style="top:38%"></div>
-          <div class="ripple" style="top:60%;animation-delay:1.2s"></div>
-          <div class="ripple" style="top:80%;animation-delay:2.1s"></div>
-          <div class="pond-overlay" id="startOverlay">
+      <div class="frame" id="frame">
+        <div class="stage" id="stage">
+          <div class="sky"></div>
+          <div class="sun">☀️</div>
+          <div class="cloud">☁️</div>
+          <div class="water" id="water">
+            <div class="wave" style="top:60px"></div>
+            <div class="wave" style="top:180px;animation-delay:1.3s"></div>
+            <div class="wave" style="top:320px;animation-delay:2.2s"></div>
+          </div>
+          <div class="island">🏝️</div>
+          <div class="bottle">🍾</div>
+
+          <div class="boat-group">
+            <div class="boat"></div>
+            <div class="fisher">🧑‍🦰</div>
+            <div class="rod"></div>
+          </div>
+
+          <div class="fishline" id="fishline"></div>
+          <div class="hook" id="hook">🪝</div>
+
+          <div id="critters"></div>
+
+          <div class="hud" id="hud" style="display:none">
+            <div class="timer"><span id="timerFill"></span></div>
+            <div class="timer-num" id="timerNum">15</div>
+          </div>
+
+          <div class="flash" id="flash"><div class="msg" id="flashMsg"></div></div>
+
+          <div class="startcover" id="startcover">
             <div class="card">
-              <h3>Ready to cast?</h3>
-              <p>Catch 5 mock leads to finish the round. Click a fish to hook it.</p>
-              <button class="btn btn-primary" id="startBtn">🎣 Cast the line</button>
+              <h3>Ready to fish?</h3>
+              <p>You have 5 casts. Hook a fish 🐟 to land a lead, and avoid the garbage 🥤. Press Cast to drop your line.</p>
+              <button class="btn btn-primary actionbtn" id="startBtn">🎣 Cast</button>
             </div>
           </div>
         </div>
       </div>
+
       <div class="controls">
-        <button class="btn btn-ghost" id="restartBtn">Restart round</button>
-        <a class="btn btn-ghost" href="custom-inquiry.html">Skip to inquiry →</a>
+        <button class="btn btn-primary actionbtn" id="actionBtn" style="display:none">🎣 Cast</button>
+        <p class="hint" id="hint">Hold <b>Reel</b> (or the spacebar) to raise the line — release to let it sink.</p>
       </div>
     </div>
 
     <aside class="sidebar" aria-live="polite">
-      <h2>Caught leads</h2>
-      <p class="count" id="countLabel">0 / 5 collected</p>
+      <h2>Your catch</h2>
+      <div class="score"><span id="scoreNum">0</span> <small>/ 5 leads</small></div>
       <div class="progress"><span id="progressBar"></span></div>
-      <ul class="leads" id="leadList">
-        <li class="empty" id="emptyState">No leads caught yet. Cast the line to begin.</li>
-      </ul>
+      <div class="pips" id="pips"></div>
+      <p class="leadhdr">Leads landed</p>
+      <ul class="leads" id="leadList"><li class="empty">No leads yet. Cast your line to start.</li></ul>
     </aside>
   </div>
 </main>
 
-<div class="modal" id="resultModal" role="dialog" aria-modal="true" aria-labelledby="resultTitle">
+<div class="modal" id="overModal" role="dialog" aria-modal="true" aria-labelledby="overTitle">
   <div class="box">
-    <h2 id="resultTitle">Nice catch! 🎣</h2>
-    <p class="sub">Here are the five mock businesses you reeled in. In real life, these are exactly the kinds of local shops I'd reach out to and help get online.</p>
-    <ul id="resultList"></ul>
+    <div class="big" id="finalScore">0 / 5</div>
+    <h2 id="overTitle">That's a wrap!</h2>
+    <p class="sub" id="overSub"></p>
+    <ul id="finalList"></ul>
     <div class="modal-actions">
       <a class="btn btn-primary" href="custom-inquiry.html">Become a real lead →</a>
-      <button class="btn btn-ghost" id="playAgainBtn">Play again</button>
+      <button class="btn btn-ghost" id="refreshBtn">Play again (refresh)</button>
     </div>
   </div>
 </div>
@@ -215,147 +271,318 @@
 <script>
 (function(){
   "use strict";
-  var TARGET = 5;
-  var MAX_FISH = 4;
-  var FISH_EMOJI = ["🐟","🐠","🐡"];
-  var LEADS = [
-    {name:"Maple Street Bakery", type:"Bakery", note:"No online ordering yet"},
-    {name:"Hometown Barber Co.", type:"Barbershop", note:"No website at all"},
-    {name:"Green Thumb Landscaping", type:"Landscaper", note:"Outdated site from 2015"},
-    {name:"Rosa's Family Diner", type:"Restaurant", note:"Menu only on Facebook"},
-    {name:"Corner Hardware", type:"Hardware store", note:"Wants a hours + map page"},
-    {name:"Bright Smile Dental", type:"Dentist", note:"No online booking"},
-    {name:"Paws & Claws Grooming", type:"Pet groomer", note:"Needs a gallery"},
-    {name:"Sunrise Yoga Studio", type:"Fitness", note:"Wants class schedule online"},
-    {name:"Tony's Auto Repair", type:"Mechanic", note:"No reviews shown anywhere"},
-    {name:"Bloom & Vine Florist", type:"Florist", note:"Wants seasonal updates"},
-    {name:"The Reading Nook", type:"Bookshop", note:"Needs an events page"},
-    {name:"Coastal Cleaning Crew", type:"Home services", note:"No contact form"}
+
+  /* ---------- constants (logical 900x900 space) ---------- */
+  var W=900, H=900, SURFACE=152, BOTTOM=862;
+  var ROD_X=452, ORIGIN_Y=150;
+  var HOOK_MIN=182, HOOK_MAX=856;
+  var DOWN_SPEED=235, UP_SPEED=340;   // px/sec
+  var CAST_TIME=15;                   // seconds
+  var HOOK_R=18, FISH_R=32, TRASH_R=30;
+  var MAX_CASTS=5;
+
+  var FISH_EMOJI=["🐟","🐠","🐡"];
+  var TRASH_EMOJI=["🥤","🛍️","🥫"];
+  var LEADS=[
+    {name:"Maple Street Bakery",type:"Bakery",note:"No online ordering yet"},
+    {name:"Hometown Barber Co.",type:"Barbershop",note:"No website at all"},
+    {name:"Green Thumb Landscaping",type:"Landscaper",note:"Outdated site from 2015"},
+    {name:"Rosa's Family Diner",type:"Restaurant",note:"Menu only on Facebook"},
+    {name:"Corner Hardware",type:"Hardware store",note:"Wants an hours + map page"},
+    {name:"Bright Smile Dental",type:"Dentist",note:"No online booking"},
+    {name:"Paws & Claws Grooming",type:"Pet groomer",note:"Needs a gallery"},
+    {name:"Sunrise Yoga Studio",type:"Fitness",note:"Wants schedule online"},
+    {name:"Tony's Auto Repair",type:"Mechanic",note:"No reviews shown"},
+    {name:"Bloom & Vine Florist",type:"Florist",note:"Wants seasonal updates"}
   ];
 
-  var pond = document.getElementById("pond");
-  var startOverlay = document.getElementById("startOverlay");
-  var startBtn = document.getElementById("startBtn");
-  var restartBtn = document.getElementById("restartBtn");
-  var countLabel = document.getElementById("countLabel");
-  var progressBar = document.getElementById("progressBar");
-  var leadList = document.getElementById("leadList");
-  var emptyState = document.getElementById("emptyState");
-  var modal = document.getElementById("resultModal");
-  var resultList = document.getElementById("resultList");
-  var playAgainBtn = document.getElementById("playAgainBtn");
+  /* ---------- elements ---------- */
+  var frame=document.getElementById("frame");
+  var stage=document.getElementById("stage");
+  var crittersBox=document.getElementById("critters");
+  var fishline=document.getElementById("fishline");
+  var hookEl=document.getElementById("hook");
+  var hud=document.getElementById("hud");
+  var timerFill=document.getElementById("timerFill");
+  var timerNum=document.getElementById("timerNum");
+  var flash=document.getElementById("flash");
+  var flashMsg=document.getElementById("flashMsg");
+  var startcover=document.getElementById("startcover");
+  var startBtn=document.getElementById("startBtn");
+  var actionBtn=document.getElementById("actionBtn");
+  var scoreNum=document.getElementById("scoreNum");
+  var progressBar=document.getElementById("progressBar");
+  var pipsBox=document.getElementById("pips");
+  var leadList=document.getElementById("leadList");
+  var overModal=document.getElementById("overModal");
+  var finalScore=document.getElementById("finalScore");
+  var overSub=document.getElementById("overSub");
+  var finalList=document.getElementById("finalList");
+  var refreshBtn=document.getElementById("refreshBtn");
 
-  var caught = [];
-  var deck = [];
-  var roundOver = true;
+  /* ---------- state ---------- */
+  var state="ready";        // ready | idle | casting | resolving | over
+  var casts=0;
+  var leads=[];
+  var results=[];           // true/false per cast
+  var hookY=ORIGIN_Y;
+  var reeling=false;
+  var timeLeft=CAST_TIME;
+  var deck=[];
+  var critters=[];
+  var lastT=null;
 
-  function shuffledDeck(){
-    var d = LEADS.slice();
-    for(var i=d.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=d[i];d[i]=d[j];d[j]=t;}
-    return d;
+  /* ---------- fit the 900x900 stage into the responsive frame ---------- */
+  function fit(){
+    var w=frame.clientWidth;
+    stage.style.transform="scale("+(w/900)+")";
   }
-  function nextLead(){ if(deck.length===0){deck=shuffledDeck();} return deck.pop(); }
-  function rand(min,max){ return Math.random()*(max-min)+min; }
+  window.addEventListener("resize",fit);
 
-  function clearFish(){
-    var fish = pond.querySelectorAll(".fish");
-    for(var i=0;i<fish.length;i++){ fish[i].remove(); }
+  /* ---------- helpers ---------- */
+  function rand(a,b){ return Math.random()*(b-a)+a; }
+  function shuffle(a){ a=a.slice(); for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;} return a; }
+  function nextLead(){ if(!deck.length) deck=shuffle(LEADS); return deck.pop(); }
+
+  /* ---------- build critters (3 fish + 3 garbage) ---------- */
+  function makeCritter(type,emoji,y,speed){
+    var el=document.createElement("div");
+    el.className="critter";
+    el.textContent=emoji;
+    crittersBox.appendChild(el);
+    return { el:el, type:type, r:(type==="fish"?FISH_R:TRASH_R),
+             x:rand(80,820), y:y, baseY:y, vx:(Math.random()<.5?-1:1)*speed,
+             bobA:rand(6,16), bobF:rand(0.4,0.9), phase:rand(0,6.28), alive:true };
+  }
+  function spawnCritters(){
+    crittersBox.innerHTML="";
+    critters=[];
+    var fishDepths=shuffle([360,520,700]);
+    for(var i=0;i<3;i++){ critters.push(makeCritter("fish",FISH_EMOJI[i],fishDepths[i]+rand(-30,30),rand(58,104))); }
+    var trashDepths=shuffle([300,470,640,780]);
+    for(var j=0;j<3;j++){ critters.push(makeCritter("trash",TRASH_EMOJI[j],trashDepths[j]+rand(-25,25),rand(155,225))); }
   }
 
-  function activeFishCount(){ return pond.querySelectorAll(".fish:not(.caught)").length; }
-
-  function spawnFish(){
-    var lead = nextLead();
-    var fish = document.createElement("button");
-    fish.className = "fish";
-    fish.type = "button";
-    fish.textContent = FISH_EMOJI[Math.floor(Math.random()*FISH_EMOJI.length)];
-    fish.setAttribute("aria-label", "Catch lead: " + lead.name);
-    fish._lead = lead;
-
-    var goRight = Math.random() < 0.5;
-    var dur = rand(7,12);
-    fish.style.top = rand(14,80) + "%";
-    fish.style.animation = (goRight ? "swim-right " : "swim-left ") + dur + "s linear infinite";
-    fish.style.animationDelay = (-rand(0,dur)) + "s";
-    fish.style.transform = goRight ? "scaleX(-1)" : "scaleX(1)";
-
-    fish.addEventListener("click", function(){ catchFish(fish); });
-    pond.appendChild(fish);
+  /* ---------- rendering ---------- */
+  function renderCritters(t){
+    for(var i=0;i<critters.length;i++){
+      var c=critters[i];
+      if(!c.alive) continue;
+      var yy=c.baseY+Math.sin(t*c.bobF+c.phase)*c.bobA;
+      c.el.style.left=c.x+"px";
+      c.el.style.top=yy+"px";
+      c.el.style.transform="translate(-50%,-50%) scaleX("+(c.vx>0?-1:1)+")";
+    }
   }
-
-  function topUpPond(){
-    var remaining = TARGET - caught.length;
-    var desired = Math.min(MAX_FISH, remaining);
-    while(activeFishCount() < desired){ spawnFish(); }
-  }
-
-  function catchFish(fish){
-    if(roundOver || fish.dataset.caught) return;
-    fish.dataset.caught = "1";
-    fish.classList.add("caught");
-    var lead = fish._lead;
-    setTimeout(function(){ fish.remove(); }, 300);
-
-    caught.push(lead);
-    renderSidebar();
-
-    if(caught.length >= TARGET){
-      roundOver = true;
-      setTimeout(showResults, 350);
+  function renderLine(){
+    if(state==="casting"){
+      fishline.style.display="block";
+      hookEl.style.display="block";
+      fishline.style.top=ORIGIN_Y+"px";
+      fishline.style.height=(hookY-ORIGIN_Y)+"px";
+      hookEl.style.top=hookY+"px";
     } else {
-      topUpPond();
+      fishline.style.display="none";
+      hookEl.style.display="none";
     }
   }
+  function renderTimer(){
+    var pct=Math.max(0,timeLeft/CAST_TIME)*100;
+    timerFill.style.width=pct+"%";
+    timerFill.style.background = timeLeft<5 ? "#e05a3a" : "var(--accent)";
+    timerNum.textContent=Math.ceil(Math.max(0,timeLeft));
+  }
 
+  /* ---------- sidebar ---------- */
   function renderSidebar(){
-    countLabel.textContent = caught.length + " / " + TARGET + " collected";
-    progressBar.style.width = (caught.length / TARGET * 100) + "%";
-    if(caught.length === 0){
-      leadList.innerHTML = '<li class="empty">No leads caught yet. Cast the line to begin.</li>';
-      return;
+    scoreNum.textContent=leads.length;
+    progressBar.style.width=(leads.length/MAX_CASTS*100)+"%";
+    pipsBox.innerHTML="";
+    for(var i=0;i<MAX_CASTS;i++){
+      var p=document.createElement("div");
+      p.className="pip";
+      if(i<results.length){ p.classList.add(results[i]?"win":"lose"); p.textContent=results[i]?"🐟":"✕"; }
+      else { p.textContent=(i+1); }
+      pipsBox.appendChild(p);
     }
-    leadList.innerHTML = "";
-    caught.forEach(function(l){
-      var li = document.createElement("li");
-      li.innerHTML = '<span class="lead-type">'+l.type+'</span><div class="lead-name">'+l.name+'</div><div class="lead-note">'+l.note+'</div>';
+    if(!leads.length){ leadList.innerHTML='<li class="empty">No leads yet. Cast your line to start.</li>'; return; }
+    leadList.innerHTML="";
+    leads.forEach(function(l){
+      var li=document.createElement("li");
+      li.innerHTML='<span class="lead-type">'+l.type+'</span><div class="lead-name">'+l.name+'</div><div class="lead-note">'+l.note+'</div>';
       leadList.appendChild(li);
     });
   }
 
-  function showResults(){
-    resultList.innerHTML = "";
-    caught.forEach(function(l){
-      var li = document.createElement("li");
-      li.innerHTML = "<b>"+l.name+"</b><span style='color:var(--ink-soft);font-size:.85rem'>"+l.type+" — "+l.note+"</span>";
-      resultList.appendChild(li);
-    });
-    modal.classList.add("open");
+  function showFlash(text,win){
+    flashMsg.textContent=text;
+    flashMsg.className="msg "+(win?"win":"lose");
+    flash.classList.remove("go"); void flash.offsetWidth; flash.classList.add("go");
   }
 
-  function startRound(){
-    caught = [];
-    deck = shuffledDeck();
-    roundOver = false;
-    modal.classList.remove("open");
-    startOverlay.style.display = "none";
-    clearFish();
+  /* ---------- cast lifecycle ---------- */
+  function startCast(){
+    if(state!=="idle" && state!=="ready") return;
+    if(casts>=MAX_CASTS) return;
+    startcover.style.display="none";
+    state="casting";
+    hookY=HOOK_MIN;
+    timeLeft=CAST_TIME;
+    reeling=false;
+    hud.style.display="flex";
+    actionBtn.style.display="inline-flex";
+    actionBtn.textContent="⬆️ Reel (hold)";
+    actionBtn.classList.add("reel");
+    renderTimer();
+    renderLine();
+  }
+
+  function endCast(win,caughtLead){
+    if(state!=="casting") return;
+    state="resolving";
+    reeling=false;
+    hud.style.display="none";
+    fishline.style.display="none";
+    hookEl.style.display="none";
+    actionBtn.classList.remove("reel");
+
+    results.push(!!win);
+    casts++;
+    if(win && caughtLead){
+      leads.push(caughtLead);
+      caughtLead._critter.alive=false;
+      caughtLead._critter.el.classList.add("splash");
+      showFlash("Lead landed! 🎣",true);
+    } else {
+      showFlash(win?"Caught!":"Missed!",false);
+    }
     renderSidebar();
-    topUpPond();
+
+    setTimeout(function(){
+      // respawn a fresh set so each cast feels new
+      spawnCritters();
+      if(casts>=MAX_CASTS){ gameOver(); }
+      else{
+        state="idle";
+        actionBtn.textContent="🎣 Cast";
+      }
+    },900);
   }
 
-  startBtn.addEventListener("click", startRound);
-  restartBtn.addEventListener("click", startRound);
-  playAgainBtn.addEventListener("click", startRound);
-  modal.addEventListener("click", function(e){ if(e.target === modal){ modal.classList.remove("open"); } });
+  function gameOver(){
+    state="over";
+    actionBtn.disabled=true;
+    actionBtn.textContent="Refresh to play again";
+    finalScore.textContent=leads.length+" / "+MAX_CASTS;
+    overSub.textContent = leads.length>=4 ? "Reel skills! You'd make a great local scout."
+      : leads.length>=2 ? "Nice haul — a few solid leads in the boat."
+      : "The garbage got the better of you this time. Refresh to try again.";
+    finalList.innerHTML="";
+    if(leads.length){
+      leads.forEach(function(l){
+        var li=document.createElement("li");
+        li.innerHTML="<b>"+l.name+"</b> — "+l.type+" ("+l.note+")";
+        finalList.appendChild(li);
+      });
+    } else {
+      var li=document.createElement("li"); li.textContent="No leads this round — the fish were slippery!";
+      finalList.appendChild(li);
+    }
+    overModal.classList.add("open");
+  }
+
+  /* ---------- main loop ---------- */
+  function loop(now){
+    if(lastT===null) lastT=now;
+    var dt=(now-lastT)/1000;
+    lastT=now;
+    if(dt>0.05) dt=0.05;             // clamp (pauses cleanly if tab was hidden)
+    var t=now/1000;
+
+    // critters always swim/float
+    for(var i=0;i<critters.length;i++){
+      var c=critters[i];
+      if(!c.alive) continue;
+      c.x+=c.vx*dt;
+      if(c.x< c.r+20){ c.x=c.r+20; c.vx=Math.abs(c.vx); }
+      if(c.x> W-c.r-20){ c.x=W-c.r-20; c.vx=-Math.abs(c.vx); }
+    }
+
+    if(state==="casting"){
+      // timer
+      timeLeft-=dt;
+      if(timeLeft<=0){ timeLeft=0; renderTimer(); endCast(false,null); }
+      else {
+        // line movement: up while reeling, down otherwise
+        hookY += (reeling? -UP_SPEED : DOWN_SPEED)*dt;
+        if(hookY<HOOK_MIN) hookY=HOOK_MIN;
+        if(hookY>HOOK_MAX) hookY=HOOK_MAX;
+
+        // collision: hook point vs critters
+        for(var k=0;k<critters.length;k++){
+          var e=critters[k];
+          if(!e.alive) continue;
+          var ey=e.baseY+Math.sin(t*e.bobF+e.phase)*e.bobA;
+          var dx=e.x-ROD_X, dy=ey-hookY;
+          if(dx*dx+dy*dy < (HOOK_R+e.r)*(HOOK_R+e.r)){
+            if(e.type==="fish"){
+              var lead=nextLead(); lead._critter=e;
+              endCast(true,lead);
+            } else {
+              endCast(false,null);
+            }
+            break;
+          }
+        }
+        renderTimer();
+        renderLine();
+      }
+    }
+
+    renderCritters(t);
+    requestAnimationFrame(loop);
+  }
+
+  /* ---------- input ---------- */
+  function pressReel(e){ if(state==="casting"){ reeling=true; if(e&&e.cancelable) e.preventDefault(); } }
+  function releaseReel(){ reeling=false; }
+
+  function onAction(){
+    if(state==="idle"||state==="ready"){ startCast(); }
+  }
+  actionBtn.addEventListener("click", onAction);
+  startBtn.addEventListener("click", function(){ startCast(); });
+
+  // hold-to-reel (pointer + touch)
+  actionBtn.addEventListener("pointerdown", pressReel);
+  window.addEventListener("pointerup", releaseReel);
+  actionBtn.addEventListener("pointerleave", releaseReel);
+  actionBtn.addEventListener("pointercancel", releaseReel);
+
+  // hold-to-reel (spacebar)
+  window.addEventListener("keydown", function(e){
+    if(e.code==="Space" || e.key===" "){
+      if(state==="casting"){ reeling=true; e.preventDefault(); }
+      else if((state==="idle"||state==="ready")){ startCast(); e.preventDefault(); }
+    }
+  });
+  window.addEventListener("keyup", function(e){ if(e.code==="Space"||e.key===" ") reeling=false; });
+
+  refreshBtn.addEventListener("click", function(){ location.reload(); });
 
   // mobile nav
-  var navToggle = document.getElementById("navToggle");
-  var navLinks = document.getElementById("navLinks");
+  var navToggle=document.getElementById("navToggle");
+  var navLinks=document.getElementById("navLinks");
   navToggle.addEventListener("click", function(){
-    var open = navLinks.classList.toggle("open");
+    var open=navLinks.classList.toggle("open");
     navToggle.setAttribute("aria-expanded", open);
   });
+
+  /* ---------- boot ---------- */
+  fit();
+  spawnCritters();
+  renderSidebar();
+  requestAnimationFrame(loop);
 })();
 </script>
 </body>
